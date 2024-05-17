@@ -30,6 +30,8 @@ public class BlogController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // setParam
+        String param = "";
         BlogDAO bDAO = new BlogDAO();
         BlogCategoriesDAO blogCDAO = new BlogCategoriesDAO();
         HttpSession session = request.getSession();
@@ -43,14 +45,15 @@ public class BlogController extends HttpServlet {
         session.setAttribute("listCate", blogCDAO.getAll());
         session.setAttribute("listLastBlog", bDAO.getAllBlog(3));
         if (search != null) {
-            request.setAttribute("listBlog", bDAO.filterBlog(search, null, null));
+            list =  bDAO.filterBlog(search, null, null);
+            param += "&search="+search;
         }
         if (cate != null) {
-            request.setAttribute("listBlog", bDAO.filterBlog(search, null, Integer.parseInt(cate)));
+            list = bDAO.filterBlog(search, null, Integer.parseInt(cate));
         }
-
+        
         // start pagging
-        int limitPage = 1;
+        int limitPage = 4;
         if (request.getParameter("cp") == null) {
             Pagination Page = new Pagination(list, limitPage, 1);
             Pagination<Blog> pagination = new Pagination<>(list, limitPage, 1);
@@ -66,6 +69,8 @@ public class BlogController extends HttpServlet {
         }
         // set URL
         request.setAttribute("pagging", "blogs");
+        // Set URL Param
+        session.setAttribute("param", param);
         // end pagging
         request.setAttribute("listBlog", list);
 

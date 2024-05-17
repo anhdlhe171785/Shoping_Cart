@@ -60,7 +60,7 @@
                             <div class="widget search_blog d-block d-sm-block d-md-block d-lg-none">
                                 <div class="form-group">
                                     <form action="blogs">
-                                        <input type="text" name="search" id="search" class="form-control" placeholder="Search..">
+                                        <input type="text" name="search" id="search" value="${search}" class="form-control" placeholder="Search..">
                                         <button type="submit"><i class="ti-search"></i></button>
                                     </form>
                                 </div>
@@ -120,7 +120,7 @@
                                     <c:forEach var="last" items="${listLastBlog}">
                                         <li>
                                             <div class="alignleft">
-                                                <a href="#0"><img src="${last.main_img}" alt=""></a>
+                                                <a href="#0"><img src="${last.cover_img}" alt=""></a>
                                             </div>
                                             <small>${last.blogCategory.name} - ${last.modified_at}</small>
                                             <h3><a href="#" title="">${last.title}</a></h3>
